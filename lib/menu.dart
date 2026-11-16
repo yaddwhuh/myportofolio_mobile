@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  final String npm = "2406000001";
-  final String nama = "Burhan";
-  final String kelas = "PBP A";
+  final String npm = "2506586961";
+  final String nama = "Muhammad Fayadh Azzahran";
+  final String kelas = "PBP C";
 
   final List<ItemHomepage> items = [
     ItemHomepage("Lihat Proyek", Icons.folder),
     ItemHomepage("Tambah Proyek", Icons.add_circle),
+    ItemHomepage("Lihat Pengalaman", Icons.folder),
+    ItemHomepage("Tambah Pengalaman", Icons.add_circle),
+    ItemHomepage("Lihat Penghargaan", Icons.folder),
+    ItemHomepage("Tambah Penghargaan", Icons.add_circle),
     ItemHomepage("Logout", Icons.logout),
   ];
 
@@ -82,7 +86,6 @@ class MyHomePage extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  // Kartu informasi yang menampilkan judul (title) dan isi (content).
   final String title;
   final String content;
 
@@ -127,7 +130,7 @@ class ItemCard extends StatelessWidget {
     return Material(
       // Menggunakan warna sekunder dari skema tema aplikasi.
       color: Theme.of(context).colorScheme.secondary,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(8),
       child: InkWell(
         // Aksi ketika kartu ditekan oleh pengguna.
         onTap: () {
