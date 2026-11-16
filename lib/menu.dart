@@ -8,13 +8,27 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "PBP C";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Proyek", Icons.folder),
-    ItemHomepage("Tambah Proyek", Icons.add_circle),
-    ItemHomepage("Lihat Pengalaman", Icons.folder),
-    ItemHomepage("Tambah Pengalaman", Icons.add_circle),
-    ItemHomepage("Lihat Penghargaan", Icons.folder),
-    ItemHomepage("Tambah Penghargaan", Icons.add_circle),
-    ItemHomepage("Logout", Icons.logout),
+    ItemHomepage(
+      "View Projects",
+      Icons.folder,
+      Color.fromARGB(255, 91, 130, 158),
+    ),
+    ItemHomepage(
+      "View Experiences",
+      Icons.fact_check,
+      Color.fromARGB(255, 103, 119, 152),
+    ),
+    ItemHomepage(
+      "View Achievements",
+      Icons.emoji_events,
+      Color.fromARGB(255, 97, 79, 134),
+    ),
+    ItemHomepage(
+      "Add Item",
+      Icons.add_circle,
+      Color.fromARGB(255, 114, 63, 77),
+    ),
+    ItemHomepage("Logout", Icons.logout, Color.fromARGB(255, 136, 92, 56)),
   ];
 
   @override
@@ -63,17 +77,21 @@ class MyHomePage extends StatelessWidget {
                   ),
 
                   // GridView menampilkan kartu tombol dalam tata letak kisi 3 kolom.
-                  GridView.count(
-                    primary: true,
+                  Padding(
                     padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 3,
-                    // shrinkWrap agar ukuran kisi menyesuaikan tinggi konten anak.
-                    shrinkWrap: true,
-                    children: items.map((ItemHomepage item) {
-                      return ItemCard(item);
-                    }).toList(),
+                    child: Wrap(
+                      alignment:
+                          WrapAlignment.center, // Centers buttons in each row
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: items.map((ItemHomepage item) {
+                        return SizedBox(
+                          width: 125, // Keeps button sizes uniform like a grid
+                          height: 125,
+                          child: ItemCard(item),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ],
               ),
@@ -116,8 +134,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color buttonColor;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.buttonColor);
 }
 
 class ItemCard extends StatelessWidget {
@@ -128,8 +147,7 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      // Menggunakan warna sekunder dari skema tema aplikasi.
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.buttonColor,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         // Aksi ketika kartu ditekan oleh pengguna.
