@@ -11,24 +11,19 @@ class MyHomePage extends StatelessWidget {
 
   final List<ItemHomepage> items = [
     ItemHomepage(
-      "View Projects",
+      "Add Projects",
       Icons.folder,
       Color.fromARGB(255, 91, 130, 158),
     ),
     ItemHomepage(
-      "View Experiences",
+      "Add Experiences",
       Icons.fact_check,
       Color.fromARGB(255, 103, 119, 152),
     ),
     ItemHomepage(
-      "View Achievements",
+      "Add Achievements",
       Icons.emoji_events,
       Color.fromARGB(255, 97, 79, 134),
-    ),
-    ItemHomepage(
-      "Add Item",
-      Icons.add_circle,
-      Color.fromARGB(255, 114, 63, 77),
     ),
     ItemHomepage("Logout", Icons.logout, Color.fromARGB(255, 136, 92, 56)),
   ];

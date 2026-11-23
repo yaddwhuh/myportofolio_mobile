@@ -1,4 +1,6 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/screens/achievement_form.dart';
+import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
 
@@ -26,10 +28,22 @@ class ItemCard extends StatelessWidget {
             );
 
           // Navigate ke halaman yang sesuai
-          if (item.name == "Add Item") {
+          if (item.name == "Add Projects") {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProjectFormPage()),
+            );
+          }
+          if (item.name == "Add Experiences") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ExperienceFormPage()),
+            );
+          }
+          if (item.name == "Add Achievements") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AchievementFormPage()),
             );
           }
         },
