@@ -1,8 +1,11 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:myportofolio_mobile/screens/achievement_form.dart';
 import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart'; // Sesuaikan path file ensureLoggedIn Anda
+import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -15,10 +18,31 @@ class ItemCard extends StatelessWidget {
       color: item.buttonColor,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
-        // Aksi ketika kartu ditekan oleh pengguna.
-        // Area responsif terhadap sentuhan
-        onTap: () {
-          // Memunculkan SnackBar ketika diklik
+        onTap: () async {
+          if (item.name == "Logout") {
+            final authState = context.read<AuthState>();
+            if (!authState.isLoggedIn) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(content: Text("Kamu belum login!")),
+                );
+              return;
+            }
+
+            await authState.logout();
+            if (!context.mounted) return;
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(const SnackBar(content: Text("Logout berhasil!")));
+            return;
+          }
+
+          if (item.name.startsWith("Add ")) {
+            final ok = await ensureLoggedIn(context);
+            if (!context.mounted || !ok) return;
+          }
+
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -27,23 +51,24 @@ class ItemCard extends StatelessWidget {
               ),
             );
 
-          // Navigate ke halaman yang sesuai
           if (item.name == "Add Projects") {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProjectFormPage()),
+              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
             );
-          }
-          if (item.name == "Add Experiences") {
+          } else if (item.name == "Add Experiences") {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ExperienceFormPage()),
+              MaterialPageRoute(
+                builder: (context) => const ExperienceFormPage(),
+              ),
             );
-          }
-          if (item.name == "Add Achievements") {
+          } else if (item.name == "Add Achievements") {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AchievementFormPage()),
+              MaterialPageRoute(
+                builder: (context) => const AchievementFormPage(),
+              ),
             );
           }
         },
